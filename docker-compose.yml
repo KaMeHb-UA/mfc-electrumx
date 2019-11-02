@@ -32,3 +32,7 @@ services:
       - wallet
     volumes:
       - ./data/server:/var/db/electrumx
+    ulimits:
+      nofile:
+        soft: "65536"
+        hard: "65536"
