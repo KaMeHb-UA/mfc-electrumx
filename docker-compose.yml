@@ -1,3 +1,4 @@
+# dev version. For production release please uncomment restarts
 version: '3.3'
 
 networks:
@@ -20,6 +21,7 @@ services:
       nofile:
         soft: "65536"
         hard: "65536"
+#    restart: always
   server:
     image: kamehb/mfc-electrumx-server:1.13.0
     networks:
@@ -40,3 +42,4 @@ services:
       nofile:
         soft: "65536"
         hard: "65536"
+#    restart: always
