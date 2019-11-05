@@ -6,4 +6,4 @@ RUN yay -Suyy --noconfirm --removemake && \
 
 WORKDIR /root
 
-ENTRYPOINT [ "mfcoind" ]
+ENTRYPOINT log() { sleep 5; tail -f /root/.MFC/debug.log & }; log; mfcoind
