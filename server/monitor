@@ -2,5 +2,5 @@
 
 while read line; do
     echo "$line"
-    echo "$line" | grep server.daemon.DaemonError && killall electrumx_server
+    echo "$line" | grep server.daemon.DaemonError && killall python3
 done < "${1:-/dev/stdin}"
