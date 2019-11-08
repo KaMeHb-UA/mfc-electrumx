@@ -1,7 +1,7 @@
 FROM archlinux/base
 
 RUN pacman -Suy --noconfirm && \
-    pacman -S --noconfirm git gcc python python-setuptools && \
+    pacman -S --noconfirm git gcc python python-setuptools psmisc && \
     cd / && \
     git clone https://github.com/Exgibichi/electrumx.git && \
     cd electrumx && \
@@ -12,4 +12,6 @@ RUN pacman -Suy --noconfirm && \
     pacman -R --noconfirm git gcc python-setuptools && \
     rm -rf /var/cache
 
-ENTRYPOINT /electrumx/electrumx_server
+COPY monitor /
+
+ENTRYPOINT /electrumx/electrumx_server | /monitor

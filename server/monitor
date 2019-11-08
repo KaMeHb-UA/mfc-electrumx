@@ -1,0 +1,6 @@
+#!/bin/sh
+
+while read line; do
+    echo "$line"
+    echo "$line" | grep server.daemon.DaemonError && killall electrumx_server
+done < "${1:-/dev/stdin}"
