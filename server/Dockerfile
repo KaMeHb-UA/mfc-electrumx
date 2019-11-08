@@ -12,6 +12,4 @@ RUN pacman -Suy --noconfirm && \
     pacman -R --noconfirm git gcc python-setuptools && \
     rm -rf /var/cache
 
-COPY monitor /
-
-ENTRYPOINT /electrumx/electrumx_server | /monitor
+ENTRYPOINT /electrumx/electrumx_server | sh -c 'while read line; do echo "$line"; echo "$line" | grep server.daemon.DaemonError && killall python3; done < "${1:-/dev/stdin}"'
