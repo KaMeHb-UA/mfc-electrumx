@@ -12,4 +12,4 @@ RUN pacman -Suy --noconfirm && \
     pacman -R --noconfirm git gcc python-setuptools && \
     rm -rf /var/cache
 
-ENTRYPOINT /electrumx/electrumx_server 2>&1 | sh -c 'while read line; do echo "$line"; echo "$line" | grep server.daemon.DaemonError && killall python3; done < "${1:-/dev/stdin}"'
+ENTRYPOINT /electrumx/electrumx_server 2>&1 | sh -c 'while read line; do echo "$line"; echo "$line" | grep "INFO:SessionManager:closing down server" && killall python3; done < "${1:-/dev/stdin}"'
