@@ -1,0 +1,6 @@
+[submodule "daemon"]
+	path = daemon
+	url = https://github.com/MFrcoin/mfcoin-daemon-docker.git
+[submodule "server"]
+	path = server
+	url = https://github.com/MFrcoin/electrumx.git

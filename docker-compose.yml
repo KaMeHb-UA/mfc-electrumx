@@ -1,12 +1,11 @@
-# dev version. For production release please uncomment restarts
 version: '3.3'
 
 networks:
   mfc:
 
 services:
-  wallet:
-    image: kamehb/mfc-wallet-daemon:3.0.0.2
+  daemon:
+    build: daemon
     networks:
       - mfc
     command:
@@ -21,25 +20,30 @@ services:
       nofile:
         soft: "65536"
         hard: "65536"
-#    restart: always
+    restart: always
   server:
-    image: kamehb/mfc-electrumx-server:1.13.0
+    build: server
     networks:
       - mfc
     environment:
       - COIN=MFCoin
       - DB_DIRECTORY=/var/db/electrumx
-      - DAEMON_URL=http://${RPC_USER}:${RPC_PASS}@wallet:22825
+      - DAEMON_URL=http://${RPC_USER}:${RPC_PASS}@daemon:22825
       - ALLOW_ROOT=1
-      - SERVICES=tcp://:23000
+      - SERVICES=ssl://:23000,ws://:23001
+      - SSL_CERTFILE=/data/electrumx.crt
+      - SSL_KEYFILE=/data/electrumx.key
     ports:
       - 23000:23000
+      - 23001:23001
     depends_on:
       - wallet
     volumes:
       - ./data/server:/var/db/electrumx
+      - ${SSL_CERTFILE}:/data/electrumx.crt:ro
+      - ${SSL_KEYFILE}:/data/electrumx.key:ro
     ulimits:
       nofile:
         soft: "65536"
         hard: "65536"
-#    restart: always
+    restart: always
