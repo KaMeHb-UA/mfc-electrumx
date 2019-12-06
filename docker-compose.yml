@@ -37,7 +37,7 @@ services:
       - 23000:23000
       - 23001:23001
     depends_on:
-      - wallet
+      - daemon
     volumes:
       - ./data/server:/var/db/electrumx
       - ${SSL_CERTFILE}:/data/electrumx.crt:ro
