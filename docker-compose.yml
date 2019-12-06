@@ -5,7 +5,10 @@ networks:
 
 services:
   daemon:
-    build: daemon
+    build:
+      context: daemon
+      args:
+          USE_OLD_BERKLEYDB: 'false'
     networks:
       - mfc
     command:
